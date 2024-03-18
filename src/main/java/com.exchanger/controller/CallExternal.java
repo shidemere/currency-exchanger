@@ -2,12 +2,11 @@ package com.exchanger.controller;
 
 import com.exchanger.service.TestApiService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -15,20 +14,10 @@ public class CallExternal {
 
     private final TestApiService testApiService;
 
-    @GetMapping()
-    public String hi() {
-        return "Hello world!";
-    }
-
-    @GetMapping("/getListUsers")
-    public String getAllUsers(){
-        return testApiService.getAllUser();
+    @PostMapping()
+    public String convert(@RequestBody Map<String, String> json) {
+        return String.valueOf(testApiService.convert(json.get("to"), json.get("from"), json.get("amount")));
     }
 
 
-    @PostMapping("/add")
-    public String addUser() {
-        ResponseEntity<String> stringResponseEntity = testApiService.addUser();
-        return stringResponseEntity.getBody();
-    }
 }
