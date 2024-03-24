@@ -1,8 +1,16 @@
 package com.exchanger.model;
 
-public record EchangeRequest(
-        String from,
-        String to,
-        Double amount
-) {
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+public class EchangeRequest {
+    String from;
+    String to;
+    Double amount;
 }

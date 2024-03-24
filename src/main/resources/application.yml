@@ -1,3 +1,17 @@
 exchanger:
-  baseUrl: https://api.apilayer.com/fixer
-  apikey: RKsaWSZclALRFkaexdR9JApHMIltniMu
+  freecurrencyapi:
+    baseUrl: https://api.freecurrencyapi.com/v1
+    apikey: fca_live_IBIa8zGws7Yr6Hn4rr2luc0nNKVEBEeHV7zNxwE3
+  fixer:
+    baseUrl: https://api.apilayer.com/fixer
+    apikey: RKsaWSZclALRFkaexdR9JApHMIltniMu
+  delay: 10000
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5567/postgres
+    username: postgres
+    password: root
+  jpa:
+    hibernate:
+      ddl-auto: validate

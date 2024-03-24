@@ -1,11 +1,13 @@
 package com.exchanger.model;
 
+import lombok.*;
 
-// все данные будут конвертироваться в JSON и обратно автоматически
-public record ExchangeResponse(
-        Boolean success,
-        Double result
-
-) {
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+public class ExchangeResponse {
+    Boolean success;
+    Double result;
 }
-
