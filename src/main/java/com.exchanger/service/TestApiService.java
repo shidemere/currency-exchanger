@@ -13,6 +13,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
 
 import java.time.LocalDateTime;
 
@@ -41,20 +42,20 @@ public class TestApiService {
     }
 
     @Scheduled(fixedDelayString = "${exchanger.delay}")
-    public Currency currenciesToRub() {
-        ResponseDTO responseDTO = webClient
+    public Mono<ResponseDTO> currenciesToRub() {
+        Mono<ResponseDTO> response = webClient
                 .get()
                 .uri("/latest/?base_currency=RUB")
                 .retrieve()
-                .bodyToMono(ResponseDTO.class)
-                .block();
+                .bodyToMono(ResponseDTO.class);
 
-        Currency currency = new Currency();
-        currency.setData(responseDTO.getData().toString());
-        currency.setTimeCreation(LocalDateTime.now());
-        repository.save(currency);
-
-        return currency;
+        response.subscribe(input -> {
+            Currency currency = new Currency();
+            currency.setData(input.getData().toString());
+            currency.setTimeCreation(LocalDateTime.now());
+            repository.save(currency);
+        });
+        return response;
     }
 
     public ExchangeResponse convert(String to, String from, Double amount) {
