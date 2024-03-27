@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class EchangeRequest {
+public class ExchangeRequest {
     String from;
     String to;
     Double amount;
